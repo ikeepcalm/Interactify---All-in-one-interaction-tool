@@ -19,13 +19,14 @@ public class Interactify implements StringInterface, DoubleInterface, IntegerInt
     private final IntegerInterface integerHandler;
     private final StringInterface stringHandler;
 
-    {
-        scanner = new Scanner(System.in);
-        arrayHandler = new ArrayHandler(scanner);
-        doubleHandler = new DoubleHandler(scanner);
-        integerHandler = new IntegerHandler(scanner);
-        stringHandler = new StringHandler(scanner);
+    public Interactify(Scanner scanner){
+        this.scanner = new Scanner(System.in);
+        this.arrayHandler = new ArrayHandler(scanner);
+        this.doubleHandler = new DoubleHandler(scanner);
+        this.integerHandler = new IntegerHandler(scanner);
+        this.stringHandler = new StringHandler(scanner);
     }
+
 
     @Override
     public int[] askForIntArray(String prompt, int size) {
