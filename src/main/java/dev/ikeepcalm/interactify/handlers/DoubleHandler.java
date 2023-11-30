@@ -1,14 +1,22 @@
-package dev.ikeepcalm.interactify;
+package dev.ikeepcalm.interactify.handlers;
+
+import dev.ikeepcalm.interactify.interfaces.DoubleInterface;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Scanner;
 
-public class DoubleHandler {
+public class DoubleHandler implements DoubleInterface {
 
-    private static final Scanner scanner = new Scanner(System.in);
 
-    public static double askForDouble(String prompt) {
+    private final Scanner scanner;
+
+    public DoubleHandler(Scanner scanner){
+        this.scanner = scanner;
+    }
+
+    @Override
+    public double askForDouble(String prompt) {
         double input;
         do {
             System.out.print(prompt);
@@ -22,7 +30,8 @@ public class DoubleHandler {
         return input;
     }
 
-    public static double askForDoubleInRange(String prompt, double min, double max) {
+    @Override
+    public double askForDoubleInRange(String prompt, double min, double max) {
         double input;
         do {
             input = askForDouble(prompt);
@@ -30,7 +39,8 @@ public class DoubleHandler {
         return input;
     }
 
-    public static double roundToDecimalPlaces(double value, int decimalPlaces) {
+    @Override
+    public double roundToDecimalPlaces(double value, int decimalPlaces) {
         if (decimalPlaces < 0) throw new IllegalArgumentException("Decimal places must be non-negative!");
         long factor = (long) Math.pow(10, decimalPlaces);
         value = value * factor;
@@ -38,7 +48,8 @@ public class DoubleHandler {
         return (double) tmp / factor;
     }
 
-    public static double askForDoubleWithDecimalLimit(String prompt, int decimalPlaces) {
+    @Override
+    public double askForDoubleWithDecimalLimit(String prompt, int decimalPlaces) {
         double input;
         BigDecimal roundedValue;
 
@@ -61,7 +72,8 @@ public class DoubleHandler {
         return input;
     }
 
-    public static String convertToScientificNotation(double value, int decimalPlaces) {
+    @Override
+    public String convertToScientificNotation(double value, int decimalPlaces) {
         BigDecimal bd = BigDecimal.valueOf(value);
         return bd.toEngineeringString();
     }

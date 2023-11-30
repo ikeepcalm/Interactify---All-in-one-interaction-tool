@@ -1,12 +1,19 @@
-package dev.ikeepcalm.interactify;
+package dev.ikeepcalm.interactify.handlers;
+
+import dev.ikeepcalm.interactify.interfaces.IntegerInterface;
 
 import java.util.Scanner;
 
-public class IntegerHandler {
+public class IntegerHandler implements IntegerInterface {
 
-    private static final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
 
-    public static int askForInteger(String prompt) {
+    public IntegerHandler(Scanner scanner){
+        this.scanner = scanner;
+    }
+
+    @Override
+    public int askForInteger(String prompt) {
         int input;
         do {
             System.out.print(prompt);
@@ -20,7 +27,8 @@ public class IntegerHandler {
         return input;
     }
 
-    public static int askForIntegerInRange(String prompt, int min, int max) {
+    @Override
+    public int askForIntegerInRange(String prompt, int min, int max) {
         int input;
         do {
             input = askForInteger(prompt);
@@ -28,7 +36,8 @@ public class IntegerHandler {
         return input;
     }
 
-    public static long calculateFactorial(int number) {
+    @Override
+    public long calculateFactorial(int number) {
         if (number < 0) {
             throw new IllegalArgumentException("Factorial is undefined for negative numbers.");
         }
@@ -39,7 +48,8 @@ public class IntegerHandler {
         return factorial;
     }
 
-    public static boolean isPrime(int number) {
+    @Override
+    public boolean isPrime(int number) {
         if (number <= 1) {
             return false;
         }
@@ -51,15 +61,18 @@ public class IntegerHandler {
         return true;
     }
 
-    public static boolean isOdd(int number) {
+    @Override
+    public boolean isOdd(int number) {
         return number % 2 != 0;
     }
 
-    public static boolean isEven(int number) {
+    @Override
+    public boolean isEven(int number) {
         return number % 2 == 0;
     }
 
-    public static int calculateSumOfDigits(int number) {
+    @Override
+    public int calculateSumOfDigits(int number) {
         int sum = 0;
         while (number != 0) {
             sum += number % 10;
@@ -68,7 +81,8 @@ public class IntegerHandler {
         return sum;
     }
 
-    public static int reverseDigits(int number) {
+    @Override
+    public int reverseDigits(int number) {
         int reversedNumber = 0;
         while (number != 0) {
             int digit = number % 10;
@@ -77,7 +91,5 @@ public class IntegerHandler {
         }
         return reversedNumber;
     }
-
-
 
 }

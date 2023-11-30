@@ -1,13 +1,21 @@
-package dev.ikeepcalm.interactify;
+package dev.ikeepcalm.interactify.handlers;
+
+import dev.ikeepcalm.interactify.Interactify;
+import dev.ikeepcalm.interactify.interfaces.StringInterface;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class StringHandler {
+public class StringHandler implements StringInterface {
 
-    private static final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
 
-    public static String askForNonEmptyString(String prompt) {
+    public StringHandler(Scanner scanner){
+        this.scanner = scanner;
+    }
+
+    @Override
+    public String askForNonEmptyString(String prompt) {
         String input;
         do {
             System.out.print(prompt);
@@ -16,7 +24,8 @@ public class StringHandler {
         return input;
     }
 
-    public static String askForStringWithLengthRange(String prompt, int minLength, int maxLength) {
+    @Override
+    public String askForStringWithLengthRange(String prompt, int minLength, int maxLength) {
         String input;
         do {
             System.out.print(prompt);
@@ -25,8 +34,8 @@ public class StringHandler {
         return input;
     }
 
-
-    public static String askForStringFromOptions(String prompt, String[] options) {
+    @Override
+    public String askForStringFromOptions(String prompt, String[] options) {
         String input;
         do {
             System.out.print(prompt);
@@ -35,7 +44,8 @@ public class StringHandler {
         return input;
     }
 
-    public static String askForAlphabeticString(String prompt) {
+    @Override
+    public String askForAlphabeticString(String prompt) {
         String input;
         do {
             System.out.print(prompt);
@@ -44,7 +54,8 @@ public class StringHandler {
         return input;
     }
 
-    public static String askForStringWithMaxLength(String prompt, int maxLength) {
+    @Override
+    public String askForStringWithMaxLength(String prompt, int maxLength) {
         String input;
         do {
             System.out.print(prompt);
@@ -53,7 +64,8 @@ public class StringHandler {
         return input;
     }
 
-    public static String askForDate(String prompt) {
+    @Override
+    public String askForDate(String prompt) {
         String date;
         do {
             System.out.print(prompt + " (YYYY-MM-DD): ");
@@ -62,7 +74,8 @@ public class StringHandler {
         return date;
     }
 
-    public static boolean askForYesNoConfirmation(String prompt) {
+    @Override
+    public boolean askForYesNoConfirmation(String prompt) {
         String input;
         do {
             System.out.print(prompt + " (yes/no): ");
