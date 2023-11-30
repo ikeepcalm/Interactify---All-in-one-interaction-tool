@@ -26,6 +26,57 @@ public class ArrayHandler implements ArrayInterface {
     }
 
     @Override
+    public int[] askForIntArray(String prompt, int size, int min, int max) {
+        int[] array;
+        do {
+            System.out.print(prompt);
+            String[] input = scanner.nextLine().split(" ");
+            array = new int[input.length];
+            for (int i = 0; i < input.length; i++) {
+                try {
+                    int element = Integer.parseInt(input[i]);
+                    if (element < min || element > max) {
+                        System.out.println("Invalid input. Please enter values within the specified range.");
+                        break;
+                    }
+                    array[i] = element;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter valid integers.");
+                    break;
+                }
+            }
+        } while (array.length != size);
+
+        return array;
+    }
+
+    @Override
+    public int[] askForStringArray(String prompt, int size, int minLength, int maxLength) {
+        int[] array;
+        do {
+            System.out.print(prompt);
+            String[] input = scanner.nextLine().split(" ");
+            array = new int[input.length];
+            for (int i = 0; i < input.length; i++) {
+                try {
+                    int element = Integer.parseInt(input[i]);
+                    if (element < minLength || element > maxLength) {
+                        System.out.println("Invalid input. Please enter values within the specified length range.");
+                        break;
+                    }
+                    array[i] = element;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter valid integers.");
+                    break;
+                }
+            }
+        } while (array.length != size);
+
+        return array;
+    }
+
+
+    @Override
     public boolean isSortedAscending(int[] array) {
         int[] sortedArray = Arrays.copyOf(array, array.length);
         Arrays.sort(sortedArray);

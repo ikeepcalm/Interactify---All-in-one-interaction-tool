@@ -33,6 +33,16 @@ public class Interactify implements StringInterface, DoubleInterface, IntegerInt
     }
 
     @Override
+    public int[] askForIntArray(String prompt, int size, int min, int max) {
+        return arrayHandler.askForIntArray(prompt, size, min, max);
+    }
+
+    @Override
+    public int[] askForStringArray(String prompt, int size, int minLength, int maxLength) {
+        return arrayHandler.askForStringArray(prompt, size, minLength, maxLength);
+    }
+
+    @Override
     public boolean isSortedAscending(int[] array) {
         return arrayHandler.isSortedAscending(array);
     }
