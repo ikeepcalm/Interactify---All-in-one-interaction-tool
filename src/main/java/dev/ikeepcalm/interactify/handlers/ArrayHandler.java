@@ -27,53 +27,28 @@ public class ArrayHandler implements ArrayInterface {
 
     @Override
     public int[] askForIntArray(String prompt, int size, int min, int max) {
-        int[] array;
-        do {
-            System.out.print(prompt);
-            String[] input = scanner.nextLine().split(" ");
-            array = new int[input.length];
-            for (int i = 0; i < input.length; i++) {
-                try {
-                    int element = Integer.parseInt(input[i]);
-                    if (element < min || element > max) {
-                        System.out.println("Invalid input. Please enter values within the specified range.");
-                        break;
-                    }
-                    array[i] = element;
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Please enter valid integers.");
-                    break;
-                }
-            }
-        } while (array.length != size);
+        int[] array = new int[size];
+        System.out.println(prompt);
+
+        for (int i = 0; i < size; i++) {
+            array[i] = askForIndexElement("Enter element at index " + i + ": ", min, max);
+        }
 
         return array;
     }
 
     @Override
-    public int[] askForStringArray(String prompt, int size, int minLength, int maxLength) {
-        int[] array;
-        do {
-            System.out.print(prompt);
-            String[] input = scanner.nextLine().split(" ");
-            array = new int[input.length];
-            for (int i = 0; i < input.length; i++) {
-                try {
-                    int element = Integer.parseInt(input[i]);
-                    if (element < minLength || element > maxLength) {
-                        System.out.println("Invalid input. Please enter values within the specified length range.");
-                        break;
-                    }
-                    array[i] = element;
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Please enter valid integers.");
-                    break;
-                }
-            }
-        } while (array.length != size);
+    public String[] askForStringArray(String prompt, int size, int minLength, int maxLength) {
+        String[] array = new String[size];
+        System.out.println(prompt);
+
+        for (int i = 0; i < size; i++) {
+            array[i] = askForStringWithLengthRange("Enter element at index " + i + ": ", minLength, maxLength);
+        }
 
         return array;
     }
+
 
 
     @Override
@@ -105,5 +80,34 @@ public class ArrayHandler implements ArrayInterface {
         } while (input <= Integer.MIN_VALUE || input >= Integer.MAX_VALUE);
         return input;
     }
+
+    private int askForIndexElement(String prompt, int min, int max) {
+        int input;
+        do {
+            System.out.print(prompt);
+            while (!scanner.hasNextInt()) {
+                System.out.println("Invalid input. Please enter a valid integer.");
+                scanner.next();
+            }
+            input = scanner.nextInt();
+            scanner.nextLine();
+        } while (input <= min || input >= max);
+        return input;
+    }
+
+
+    private String askForStringWithLengthRange(String prompt, int minLength, int maxLength) {
+        String input;
+        do {
+            System.out.print(prompt);
+            input = scanner.nextLine().trim();
+            if (input.length() < minLength || input.length() > maxLength) {
+                System.out.println("Invalid input. Please enter a string within the specified length range.");
+            }
+        } while (input.length() < minLength || input.length() > maxLength);
+
+        return input;
+    }
+
 
 }

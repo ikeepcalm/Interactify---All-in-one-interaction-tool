@@ -38,7 +38,7 @@ public class Interactify implements StringInterface, DoubleInterface, IntegerInt
     }
 
     @Override
-    public int[] askForStringArray(String prompt, int size, int minLength, int maxLength) {
+    public String[] askForStringArray(String prompt, int size, int minLength, int maxLength) {
         return arrayHandler.askForStringArray(prompt, size, minLength, maxLength);
     }
 
