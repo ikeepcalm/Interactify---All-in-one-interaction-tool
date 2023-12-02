@@ -1,6 +1,5 @@
 package dev.ikeepcalm.interactify.handlers;
 
-import dev.ikeepcalm.interactify.Interactify;
 import dev.ikeepcalm.interactify.interfaces.StringInterface;
 
 import java.util.Arrays;
