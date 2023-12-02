@@ -43,19 +43,24 @@ public class EquationsHandler  implements EquationsInterface {
     }
 
 
-    public double[] parseEquation(String equation){
+    public double[] parseEquation(String equation) {
         equation = equation.replaceAll("\\s+", "");
         String[] parts = equation.split("=");
         String left = parts[0];
         String right = parts[1];
         int numVariables = countVariables(left);
         double[] coefficients = new double[numVariables + 1];
-        coefficients[0] = Double.parseDouble(right);
+
         for (int i = 1; i <= numVariables; i++) {
-            coefficients[i] = getCoefficient(left, "x" + i);
+            coefficients[i - 1] = getCoefficient(left, "x" + i);
         }
+
+        coefficients[numVariables] = Double.parseDouble(right);
+
         return coefficients;
     }
+
+
 
     public double getCoefficient(String left, String var) {
         double coefficient = 0;
