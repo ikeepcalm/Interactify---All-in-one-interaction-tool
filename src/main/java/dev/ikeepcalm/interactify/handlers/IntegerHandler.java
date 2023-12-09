@@ -37,18 +37,6 @@ public class IntegerHandler implements IntegerInterface {
     }
 
     @Override
-    public long calculateFactorial(int number) {
-        if (number < 0) {
-            throw new IllegalArgumentException("Factorial is undefined for negative numbers.");
-        }
-        long factorial = 1;
-        for (int i = 2; i <= number; i++) {
-            factorial *= i;
-        }
-        return factorial;
-    }
-
-    @Override
     public boolean isPrime(int number) {
         if (number <= 1) {
             return false;

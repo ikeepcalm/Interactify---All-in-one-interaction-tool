@@ -5,9 +5,6 @@ public interface IntegerInterface {
     int askForInteger(String prompt);
 
     int askForIntegerInRange(String prompt, int min, int max);
-
-    long calculateFactorial(int number);
-
     boolean isPrime(int number);
 
     boolean isOdd(int number);

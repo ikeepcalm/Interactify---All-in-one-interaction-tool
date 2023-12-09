@@ -4,14 +4,12 @@ import dev.ikeepcalm.interactify.interfaces.EquationsInterface;
 import dev.ikeepcalm.interactify.interfaces.IntegerInterface;
 
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class EquationsHandler  implements EquationsInterface {
+public class EquationsHandler implements EquationsInterface {
 
     private final Scanner scanner;
 
-    public EquationsHandler(Scanner scanner){
+    public EquationsHandler(Scanner scanner) {
         this.scanner = scanner;
     }
 
@@ -24,11 +22,11 @@ public class EquationsHandler  implements EquationsInterface {
         } while (numberOfEquations <= 0);
 
         double[][] matrix = new double[numberOfEquations][];
-        System.out.println("Caution! Input x should have unique number after (e.g. x1 + x2 + x3 + ...)\nOtherwise it will be considered as next variable and might impact calculations!\n");
+        System.out.println("Enter the equations in the form of \"2x + 4x - 5x + 1x = 0\": \n");
         for (int i = 0; i < numberOfEquations; i++) {
             String equation;
             do {
-                equation = askForNonEmptyString("Enter the " + (i + 1) + "-th equation in the form of ax1 + bx2 + ... + nxk = b: \n");
+                equation = askForNonEmptyString("Enter the " + (i + 1) + "-th equation: ");
             } while (!isValidEquationFormat(equation));
 
             double[] coefficients = parseEquation(equation);
@@ -38,57 +36,20 @@ public class EquationsHandler  implements EquationsInterface {
     }
 
     private boolean isValidEquationFormat(String equation) {
-        String regex = "^\\s*(([+-]?\\s*\\d*\\.?\\d*\\s*\\*?\\s*x\\d+\\s*)[+-]\\s*)*([+-]?\\s*\\d*\\.?\\d*\\s*\\*?\\s*x\\d+)\\s*=\\s*([+-]?\\s*\\d*\\.?\\d+)\\s*$";
-        return equation.matches(regex);
+        return equation.matches("([+-]?\\d*\\.?\\d*)x([+-]\\d*\\.?\\d*x)*=0");
     }
-
 
     public double[] parseEquation(String equation) {
         equation = equation.replaceAll("\\s+", "");
-        String[] parts = equation.split("=");
-        String left = parts[0];
-        String right = parts[1];
-        int numVariables = countVariables(left);
-        double[] coefficients = new double[numVariables + 1];
+        String[] terms = equation.split("[=]")[0].split("([+-]?\\d*\\.?\\d*)x");
 
-        for (int i = 1; i <= numVariables; i++) {
-            coefficients[i - 1] = getCoefficient(left, "x" + i);
+        double[] coefficients = new double[terms.length];
+
+        for (int i = 0; i < terms.length; i++) {
+            coefficients[i] = terms[i].isEmpty() ? 1 : Double.parseDouble(terms[i]);
         }
-
-        coefficients[numVariables] = Double.parseDouble(right);
 
         return coefficients;
-    }
-
-
-
-    public double getCoefficient(String left, String var) {
-        double coefficient = 0;
-        Pattern pattern = Pattern.compile("([-+]?\\d*\\.?\\d*)\\*?" + var);
-        Matcher matcher = pattern.matcher(left);
-        if (matcher.find()) {
-            String coef = matcher.group(1);
-            if (coef.isEmpty() || coef.equals("+")) {
-                coefficient = 1;
-            }
-            else if (coef.equals("-")) {
-                coefficient = -1;
-            }
-            else {
-                coefficient = Double.parseDouble(coef);
-            }
-        }
-        return coefficient;
-    }
-
-    private int countVariables(String equation) {
-        Pattern pattern = Pattern.compile("([-+]?\\d*\\.?\\d*)\\*?x\\d+");
-        Matcher matcher = pattern.matcher(equation);
-        int count = 0;
-        while (matcher.find()) {
-            count++;
-        }
-        return count;
     }
 
     private String askForNonEmptyString(String prompt) {
@@ -99,7 +60,4 @@ public class EquationsHandler  implements EquationsInterface {
         } while (input.isEmpty());
         return input;
     }
-
-
-
 }

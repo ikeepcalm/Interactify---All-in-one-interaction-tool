@@ -40,4 +40,5 @@ public class Interactify {
     public EquationsInterface useEquationsHandler() {
         return equationsHandler;
     }
+
 }
