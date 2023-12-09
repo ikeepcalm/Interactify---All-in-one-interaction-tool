@@ -3,6 +3,7 @@ package dev.ikeepcalm.interactify;
 import dev.ikeepcalm.interactify.handlers.*;
 import dev.ikeepcalm.interactify.interfaces.*;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Interactify {
@@ -39,6 +40,12 @@ public class Interactify {
 
     public EquationsInterface useEquationsHandler() {
         return equationsHandler;
+    }
+
+    public static void main(String[] args) {
+        Interactify interactify = new Interactify(new Scanner(System.in));
+        double[][] matrix = interactify.equationsHandler.askForSlae("Enter the number of variables:",1, 2);
+        System.out.println(Arrays.deepToString(matrix));
     }
 
 }

@@ -6,7 +6,7 @@
 
     <groupId>dev.ikeepcalm.interactify</groupId>
     <artifactId>Interactify</artifactId>
-    <version>1.0.9-SNAPSHOT</version>
+    <version>1.1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
