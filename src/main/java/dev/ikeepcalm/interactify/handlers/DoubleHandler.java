@@ -18,6 +18,7 @@ public class DoubleHandler implements DoubleInterface {
     @Override
     public double askForDouble(String prompt) {
         double input;
+        boolean validInput;
         do {
             System.out.print(prompt);
             while (!scanner.hasNextDouble()) {
@@ -26,9 +27,14 @@ public class DoubleHandler implements DoubleInterface {
             }
             input = scanner.nextDouble();
             scanner.nextLine();
-        } while (Double.isNaN(input) || Double.isInfinite(input));
+            validInput = !Double.isNaN(input) && !Double.isInfinite(input);
+            if (!validInput) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            }
+        } while (!validInput);
         return input;
     }
+
 
     @Override
     public double askForDoubleInRange(String prompt, double min, double max) {
@@ -39,19 +45,13 @@ public class DoubleHandler implements DoubleInterface {
         return input;
     }
 
-    @Override
-    public double roundToDecimalPlaces(double value, int decimalPlaces) {
-        long factor = (long) Math.pow(10, decimalPlaces);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
-    }
 
     @Override
     public double askForDoubleWithDecimalLimit(String prompt, int decimalPlaces) {
         double input;
         BigDecimal roundedValue;
 
+        boolean validInput;
         do {
             System.out.print(prompt);
             while (!scanner.hasNextBigDecimal()) {
@@ -63,12 +63,25 @@ public class DoubleHandler implements DoubleInterface {
             roundedValue = userInput.setScale(decimalPlaces, RoundingMode.HALF_UP);
             input = roundedValue.doubleValue();
 
-            if (userInput.compareTo(BigDecimal.valueOf(input)) != 0) {
+            validInput = !Double.isNaN(input) && !Double.isInfinite(input) && userInput.compareTo(BigDecimal.valueOf(input)) == 0;
+
+            if (!validInput) {
                 System.out.println("Invalid input. Please enter a number with up to " + decimalPlaces + " decimal places.");
-            } scanner.nextLine();
-        } while (Double.isNaN(input) || Double.isInfinite(input));
+            }
+
+            scanner.nextLine();
+        } while (!validInput);
 
         return input;
+    }
+
+
+    @Override
+    public double roundToDecimalPlaces(double value, int decimalPlaces) {
+        long factor = (long) Math.pow(10, decimalPlaces);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 
     @Override

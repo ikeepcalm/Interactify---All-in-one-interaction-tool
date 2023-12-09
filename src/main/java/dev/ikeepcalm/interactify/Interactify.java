@@ -42,10 +42,4 @@ public class Interactify {
         return equationsHandler;
     }
 
-    public static void main(String[] args) {
-        Interactify interactify = new Interactify(new Scanner(System.in));
-        double[][] matrix = interactify.equationsHandler.askForSlae("Enter the number of variables:",1, 2);
-        System.out.println(Arrays.deepToString(matrix));
-    }
-
 }
