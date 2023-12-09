@@ -36,7 +36,12 @@ public class EquationsHandler implements EquationsInterface {
     }
 
     private boolean isValidEquationFormat(String equation) {
-        return equation.matches("([+-]?\\d*\\.?\\d*)x([+-]\\d*\\.?\\d*x)*=0");
+        if (equation.matches("([+-]?\\d*\\.?\\d*)x([+-]\\d*\\.?\\d*x)*=\\d+")) {
+            return true;
+        } else {
+            System.out.println("The equation does not follow the correct format. Please try again!");
+            return false;
+        }
     }
 
     public double[] parseEquation(String equation) {
